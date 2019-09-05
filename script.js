@@ -1,6 +1,22 @@
 let listMas  = [];
+let colorMas = ["#ef6e69","#f077a2","#8f6dcb","#5eb3f6","#67d7e5","#ffe083"];
 
-function addToHtml (title,value){
+function randomInteger(min, max) {
+    let rand = min + Math.random() * (max + 1 - min);
+    return Math.floor(rand);
+  }
+
+  function toHex(rgb) {
+    if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;
+
+    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    function hex(x) {
+        return ("0" + parseInt(x).toString(16)).slice(-2);
+    }
+    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+function addToHtml (title,value,color){
     document.getElementById("luToDO").insertAdjacentHTML("beforeend",`
     <li id="${title}" class="todo-list">
         <div class="view">
@@ -9,12 +25,12 @@ function addToHtml (title,value){
             <button class="destroy" onClick="deleteFromHtml(this)">X</button>
         </div>
     </li>`);
+    document.getElementById(title).style.backgroundColor = color;
 }
 
-function deleteFromHtml (but) {
-    deleteFromList(but.parentNode.parentNode.id);
-    but.parentNode.parentNode.parentNode.removeChild(but.parentNode.parentNode);
-
+function deleteFromHtml (button) {
+    deleteFromList(button.parentNode.parentNode.id);
+    button.parentNode.parentNode.parentNode.removeChild(button.parentNode.parentNode);
 }
 
 function deleteFromList (delTitle){
@@ -32,17 +48,32 @@ function deleteFromList (delTitle){
 
 function addToList() {
     if (!document.getElementById("inputToDo").value) return;
-    
+
     let title = Date.now();
     let value = document.getElementById("inputToDo").value;
-    
-    listMas.push({title : `${title}` , value : value , color: 'white'});
+    let colorRnd = colorMas[randomInteger(0,colorMas.length-1)];
 
-    addToHtml(title,value);
+    listMas.push({title : `${title}` , value : value , color: `${colorRnd}`});
+
+    addToHtml(title,value,colorRnd);
 
     document.getElementById("inputToDo").value = "";
     console.log (" ");
     console.log (listMas);
+}
+
+function editColor(elem){
+    for (i = 0; i < listMas.length; i++){
+        let titleId = listMas[i].title;
+        checkBox = document.getElementById(titleId).querySelector('.toggle')
+        if (checkBox.checked){
+            document.getElementById(titleId).style.backgroundColor = getComputedStyle(elem).backgroundColor;
+            listMas[i].color = toHex(getComputedStyle(elem).backgroundColor);
+            checkBox.checked = false;
+
+        }
+    }
+    console.log(listMas);
 }
 
 document.getElementById("butNewToDo").onclick = addToList;
