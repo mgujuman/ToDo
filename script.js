@@ -34,47 +34,62 @@ function deleteFromHtml (button) {
 }
 
 function deleteFromList (delTitle){
-    console.log (`delete from ${delTitle}`);
-     
-    for (i = 0; i < listMas.length; i++){
-        if (listMas[i].title == delTitle){
-            listMas.splice(i,1);
+    let keys = Object.keys(localStorage);
+    for (i = 0; i < keys.length; i++){
+        if (keys[i] == delTitle){
+            localStorage.removeItem(keys[i]);
             break;
         }
 
     }   
-    console.log (listMas);
+    
 }
 
 function addToList() {
     if (!document.getElementById("inputToDo").value) return;
-
+    let masObj = localStorage.getItem('masTitle');
     let title = Date.now();
     let value = document.getElementById("inputToDo").value;
     let colorRnd = colorMas[randomInteger(0,colorMas.length-1)];
 
-    listMas.push({title : `${title}` , value : value , color: `${colorRnd}`});
-
+    localStorage.setItem([title], JSON.stringify({title : `${title}` , value : value , color: `${colorRnd}`}));
     addToHtml(title,value,colorRnd);
 
     document.getElementById("inputToDo").value = "";
-    console.log (" ");
-    console.log (listMas);
 }
 
 function editColor(elem){
-    for (i = 0; i < listMas.length; i++){
-        let titleId = listMas[i].title;
-        checkBox = document.getElementById(titleId).querySelector('.toggle')
+    let keys = Object.keys(localStorage);
+    for (i = 0; i < keys.length; i++){
+        checkBox = document.getElementById(keys[i]).querySelector('.toggle')
         if (checkBox.checked){
-            document.getElementById(titleId).style.backgroundColor = getComputedStyle(elem).backgroundColor;
-            listMas[i].color = toHex(getComputedStyle(elem).backgroundColor);
+            document.getElementById(keys[i]).style.backgroundColor = getComputedStyle(elem).backgroundColor;
+            let id = keys[i];
+            let obj = JSON.parse(localStorage[id]);
+            console.log (obj);
+            obj.color = toHex(getComputedStyle(elem).backgroundColor);
+            console.log (obj);
+            localStorage.setItem([id], JSON.stringify(obj));
+            console.log (localStorage[id]);
             checkBox.checked = false;
 
         }
     }
-    console.log(listMas);
 }
+
+function loadSession(){
+    if (localStorage.getItem('masTitle') != null){
+        let keys = Object.keys(localStorage);
+        for (i = 0; i < keys.length; i++){
+            let id = keys[i];
+            let obj = JSON.parse(localStorage[id]);
+            addToHtml(obj.title,obj.value,obj.color);
+        }
+    } else{
+        localStorage.setItem('masItem','');
+    }
+}
+
 
 document.getElementById("butNewToDo").onclick = addToList;
 
