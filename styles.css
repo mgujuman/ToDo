@@ -19,7 +19,7 @@
     border-style: none;
     margin-right: auto;
     outline: none;
-    width: 87%;
+    width: 63%;
     padding: 0;
     height: 75%;
     font-size: 23px;
@@ -35,6 +35,7 @@ li.todo-list{
     margin: 2px;
     padding: 2px;
     min-height: 40px;
+    border-radius: 3px;
 }
 
 button.new-todo{
@@ -75,4 +76,33 @@ li.todo-list input{
 
 div.view{
     height:auto;
+}
+button.btnColor{
+    padding : 8px;
+    cursor:pointer;
+    border-style : none;
+}
+
+#c0{
+    background-color:#EF6E69;
+}
+
+#c1{
+    background-color:#F077A2;
+}
+
+#c2{
+    background-color:#8F6DCB;
+}
+
+#c3{
+    background-color:#5EB3F6;
+}
+
+#c4{
+    background-color:#67D7E5;
+}
+
+#c5{
+    background-color:#FFE083;
 }
