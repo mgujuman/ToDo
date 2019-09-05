@@ -3,6 +3,7 @@ let listMas  = [];
 function AddOdj(title,value){
     this.title = title;
     this.value = value;
+    
 }
 
 
@@ -24,9 +25,7 @@ function deleteFromHtml (but) {
 }
 
 function deleteFromList (title){
-    console.log (title);
-    
-
+    console.log (title);    
 }
 
 function addToList() {
