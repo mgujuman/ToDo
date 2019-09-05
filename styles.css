@@ -1,0 +1,78 @@
+ body{
+     background-color: azure;
+     max-width: 500px;
+     margin: 10px auto;
+ } 
+  
+ div.new-todo{
+    width: 500px; /* Ширина поля с кнопкой */
+    border: 1px solid #000; /* Параметры рамки */
+    border-radius: 3px;
+    min-height: 40px; /* Минимальная высота */
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;   
+    background-color: #fff; 
+  }
+
+  #inputToDo{
+    border-style: none;
+    margin-right: auto;
+    outline: none;
+    width: 87%;
+    padding: 0;
+    height: 75%;
+    font-size: 23px;
+    padding-left: 5px;
+  }
+lu.todo-list {
+    list-style: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 10px;
+}
+li.todo-list{
+    margin: 2px;
+    padding: 2px;
+    min-height: 40px;
+}
+
+button.new-todo{
+    margin-top: 1% ;
+    display: inline-block;
+    font-size: 22px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 2px #999;
+}
+
+button.new-todo:hover {background-color: #3e8e41}
+
+button.new-todo:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+button.destroy{
+    float: right;
+    right: 10px;
+}
+
+li.todo-list label{
+    padding-left: 10px;
+}
+
+li.todo-list input{
+
+    padding: 15px;
+}
+
+div.view{
+    height:auto;
+}
