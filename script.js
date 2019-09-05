@@ -1,13 +1,5 @@
 let listMas  = [];
 
-function AddOdj(title,value){
-    this.title = title;
-    this.value = value;
-    
-    
-}
-
-
 function addToHtml (title,value){
     document.getElementById("luToDO").insertAdjacentHTML("beforeend",`
     <li id="${title}" class="todo-list">
@@ -25,8 +17,17 @@ function deleteFromHtml (but) {
 
 }
 
-function deleteFromList (title){
-    console.log (title);    
+function deleteFromList (delTitle){
+    console.log (`delete from ${delTitle}`);
+     
+    for (i = 0; i < listMas.length; i++){
+        if (listMas[i].title == delTitle){
+            listMas.splice(i,1);
+            break;
+        }
+
+    }   
+    console.log (listMas);
 }
 
 function addToList() {
@@ -35,7 +36,7 @@ function addToList() {
     let title = Date.now();
     let value = document.getElementById("inputToDo").value;
     
-    listMas.push(new AddOdj (title,value));
+    listMas.push({title : `${title}` , value : value , color: 'white'});
 
     addToHtml(title,value);
 
