@@ -84,7 +84,8 @@ function loadSession(){
             }
             
     } else{
-        localStorage.setItem('masTitle',JSON.stringify('[]'));
+        let masObj = [];
+        localStorage.setItem('masTitle',JSON.stringify(masObj));
 
     }
 }
@@ -93,6 +94,6 @@ document.getElementById("butNewToDo").onclick = addToList;
 
 document.addEventListener ('keyup', function (keys){
     if (keys.key === 'Enter'){
-        addToList([]);
+        addToList();
     } 
 });
