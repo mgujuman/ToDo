@@ -26,81 +26,63 @@ function addToHtml (title,value,color){
             <span class="close" onclick="deleteFromHtml(this)"></span>
         </div>
     </li>`);
-    document.getElementById(title).style.backgroundColor = color;
+document.getElementById(title).style.backgroundColor = color;
 }
+
+
 
 function deleteFromHtml (button) {
-    deleteFromList(button.parentNode.parentNode.id);
+    let id = JSON.stringify({id : button.parentNode.parentNode.id});
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", '/api/deleteList', true);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    xhr.send(id);
+    
     button.parentNode.parentNode.parentNode.removeChild(button.parentNode.parentNode);
-}
-
-function deleteFromList (delTitle){
-    let masObj = JSON.parse(localStorage.getItem('masTitle'));  
-    for (i = 0; i < masObj.length; i++){
-        if (masObj[i].title == delTitle){
-            masObj.splice(i,1);
-            localStorage.setItem('masTitle',JSON.stringify(masObj));
-            break;
-        }
-
-    }   
     
 }
 
 function addToList() {
     if (!document.getElementById("inputToDo").value) return;
-
+    
     let xhr = new XMLHttpRequest();
 
-    let json = JSON.stringify({title:Date.now(),value: document.getElementById("inputToDo").value, 
-    color:colorMas[randomInteger(0,colorMas.length-1)]});
-    console.log (json);
-    xhr.open("POST", '/api/add', true);
-    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xhr.send(json);
+    let id = Date.now()
+    let value = document.getElementById("inputToDo").value
+    let color = colorMas[randomInteger(0,colorMas.length-1)]
+    let json = JSON.stringify({id , value , color});
 
-    
-    
-    
-    let masObj = JSON.parse(localStorage.getItem("masTitle"));
-    
-    masObj.push({title:Date.now(),value: document.getElementById("inputToDo").value, 
-        color:colorMas[randomInteger(0,colorMas.length-1)]});
-   
-    addToHtml(masObj[masObj.length-1].title, masObj[masObj.length-1].value, 
-        masObj[masObj.length-1].color);
-    
-    localStorage.setItem("masTitle",JSON.stringify(masObj));
+    xhr.open("POST", '/api/addList', true);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    xhr.send(json);  
+
+    addToHtml (id,value,color);
+
     document.getElementById("inputToDo").value = "";
+
 }
 
 function editColor(elem){
-    let masObj = JSON.parse(localStorage.getItem("masTitle"));
-    for (i = 0; i < masObj.length; i++){
-        if (document.getElementById(masObj[i].title).querySelector('.checkbox input').checked){
-
-            document.getElementById(masObj[i].title).style.backgroundColor = getComputedStyle(elem).backgroundColor;
-            masObj[i].color = toHex(getComputedStyle(elem).backgroundColor)
-            document.getElementById(masObj[i].title).querySelector('.checkbox input').checked = false;
-
+    luChild = document.getElementById('luToDO').querySelectorAll('.todo-list li');
+    let masCheck = [];
+   
+    for (let i = 0; i < luChild.length; i++){
+        if (document.getElementById(luChild[i].id).querySelector('.checkbox input').checked){
+            let color = toHex(getComputedStyle(elem).backgroundColor)
+            document.getElementById(luChild[i].id).style.backgroundColor = color;
+            masCheck.push({id : luChild[i].id, color});
+            document.getElementById(luChild[i].id).querySelector('.checkbox input').checked = false;
         }
-    }
-    localStorage.setItem("masTitle",JSON.stringify(masObj));
-}
+    };
 
-function loadSession(){
-        
-    if (localStorage.getItem('masTitle') != null){
-            let masObj = JSON.parse(localStorage.getItem('masTitle'))
-            for (i = 0; i < masObj.length; i++){
-                addToHtml(masObj[i].title, masObj[i].value, masObj[i].color);
-            }
-            
-    } else{
-        let masObj = [];
-        localStorage.setItem('masTitle',JSON.stringify(masObj));
+    if (masCheck.length == 0) return;
 
-    }
+    let xhr = new XMLHttpRequest();
+    let json = JSON.stringify(masCheck);
+    xhr.open("POST", '/api/editList', true);
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+    xhr.send(json);  
+       
 }
 
 document.getElementById("butNewToDo").onclick = addToList;

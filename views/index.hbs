@@ -1,12 +1,24 @@
 <!DOCTYPE html>
     <head>
-            <link href = "styles.css" rel = "stylesheet">
+            <link href = "../styles.css" rel = "stylesheet">
             
     </head>
 
-    <body onLoad="loadSession()">
+    <body>
         <div class = "todo-list">
-        <lu class = "todo-list" id = "luToDO"></lu>
+        <lu class = "todo-list" id = "luToDO">
+            {{#each list}}
+            <li id="{{this.id}}" class="todo-list" style="background-color : {{this.color}};">
+                <div class="view">
+                    <label class="checkbox">
+                        <input type="checkbox" />
+                        <div class="checkbox__text">{{this.value}}</div>
+                    </label>
+                    <span class="close" onclick="deleteFromHtml(this)"></span>
+                    </div>
+            </li>
+            {{/each}}
+        </lu>
         
         </div>
         <div class = "new-todo">            
@@ -22,7 +34,7 @@
             </div>
         </div>
 
-        <script src = "script.js"></script>
+        <script src = "../script.js"></script>
     </body>   
 
 </html>
