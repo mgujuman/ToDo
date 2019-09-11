@@ -1,40 +1,35 @@
 <!DOCTYPE html>
-    <head>
-            <link href = "../styles.css" rel = "stylesheet">
-            
-    </head>
-
-    <body>
-        <div class = "todo-list">
-        <lu class = "todo-list" id = "luToDO">
-            {{#each list}}
-            <li id="{{this.id}}" class="todo-list" style="background-color : {{this.color}};">
-                <div class="view">
-                    <label class="checkbox">
-                        <input type="checkbox" />
-                        <div class="checkbox__text">{{this.value}}</div>
-                    </label>
-                    <span class="close" onclick="deleteFromHtml(this)"></span>
-                    </div>
-            </li>
-            {{/each}}
-        </lu>
-        
-        </div>
-        <div class = "new-todo">            
-            <input type = "text" id = "inputToDo" placeholder = "Add New Item">
-            <div id="buttons">
-                <button class = "btnColor" id = "c0" onClick="editColor(this)"></button>
-                <button class = "btnColor" id = "c1" onClick="editColor(this)"></button>
-                <button class = "btnColor" id = "c2" onClick="editColor(this)"></button>
-                <button class = "btnColor" id = "c3" onClick="editColor(this)"></button>
-                <button class = "btnColor" id = "c4" onClick="editColor(this)"></button>
-                <button class = "btnColor" id = "c5" onClick="editColor(this)"></button>
-                <button class = "new-todo" id = "butNewToDo">Add</button>
+  <head>
+    <link href = "../styles.css" rel = "stylesheet">
+  </head>
+  <body>
+    <div class = "todo-list">
+      <lu class = "todo-list" id = "luToDO">
+        {{#each list}}
+          <li id = "{{this.id}}" class = "todo-list" style = "background-color : {{this.color}};">
+            <div class = "view">
+              <label class = "checkbox">
+                <input type = "checkbox" />
+                <div class = "checkbox__text">{{this.value}}</div>
+              </label>
+              <span class = "close" onclick="deleteFromHTML(this)"></span>
             </div>
-        </div>
-
-        <script src = "../script.js"></script>
-    </body>   
-
+          </li>
+        {{/each}}
+      </lu>
+    </div>
+    <div class = "new-todo">            
+      <input type = "text" id = "inputToDo" placeholder = "Add New Item">
+      <div id = "buttons">
+        <button class = "btnColor" id = "c0" onClick = "editColor(this)"></button>
+        <button class = "btnColor" id = "c1" onClick = "editColor(this)"></button>
+        <button class = "btnColor" id = "c2" onClick = "editColor(this)"></button>
+        <button class = "btnColor" id = "c3" onClick = "editColor(this)"></button>
+        <button class = "btnColor" id = "c4" onClick = "editColor(this)"></button>
+        <button class = "btnColor" id = "c5" onClick = "editColor(this)"></button>
+        <button class = "new-todo" id = "butNewToDo">Add</button>
+      </div>
+    </div>
+    <script src = "../script.js"></script>
+  </body>   
 </html>
